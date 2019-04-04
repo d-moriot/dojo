@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+    <script>
+
+        var cook;
+        var cStart,cEnd;
+        var cnt;
+        var date1,date2;
+        var kigen = 30;
+
+        date1 = new Date();
+
+        date1.setTime(date1.getTime() + kigen*24*60*60*1000);
+
+        date2 = date1.toGMTString();
+        if (navigator.cookieEnabled)
+        {
+          cook=document.cookie + ";";
+          cStart = cook.indexOf("counts=",0);
+          if (cStart == -1)
+          {
+            document.write("1回目の訪問です！");
+            document.cookie="counts=1;expires=" + date2;
+          }
+          else
+          {
+            cEnd=cook.indexOf(";",cStart);
+            cnt=cook.substring(cStart+7,cEnd);
+            try
+            {
+              cnt=parseInt(cnt)+1;
+              document.write(cnt+"回目の訪問です！");
+              document.cookie="counts="+cnt+";expires="+ date2;
+            }
+            catch(e)
+            {
+              document.write("訪問回数の取得に失敗しました。");
+            }
+          }
+        }
+        else
+        {
+          document.write("cookieが使用できません。");
+        }
+
+        </script>
+</head>
+<body>
+</body>
+</html>
