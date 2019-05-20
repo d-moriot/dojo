@@ -7,7 +7,7 @@ const bodyParser = require('body-parser'); //モジュール読み込み
 const CookieParser = require('Cookie-parser'); //モジュール読み込み
 const session = require('express-session'); //モジュール読み込み
 
-
+//
 app.use(bodyParser());
 app.use(express.static('public'));
 
