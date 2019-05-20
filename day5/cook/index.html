@@ -7,57 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
-    <script>
+  <script>
+    let cook;
+    let cStart, cEnd;
+    let cnt;
+    if (navigator.cookieEnabled) {
+      cook = document.cookie + ";";
+      cStart = cook.indexOf("counts=", 0);
+      if (cStart == -1) {
+        document.write("1回目の訪問です！");
+        document.cookie = "counts=1;expires=" + date2;
+      }
+      else {
+        cEnd = cook.indexOf(";", cStart);
+        cnt = cook.substring(cStart + 7, cEnd);
+        try {
+          cnt = parseInt(cnt) + 1;
+          document.write(cnt + "回目の訪問です！");
+          document.cookie = "counts=" + cnt + ";expires=" + date2;
+        }
+        catch (e) {
+          document.write("訪問回数の取得に失敗しました。");
+        }
+      }
+    }
+    else {
+      document.write("cookieが使用できません。");
+    }
 
-        var cook;
-        var cStart,cEnd;
-        var cnt;
-        
-        var date1,date2;  //日付データを格納する変数
-        var kigen = 30;   //cookieの期限（今回は30日）
-        
-        //現在の日付データを取得
-        date1 = new Date();
-        
-        //30日後の日付データを作成
-        date1.setTime(date1.getTime() + kigen*24*60*60*1000);
-        
-        //GMT形式に変換して変数date2に格納する
-        date2 = date1.toGMTString();
-        
-        if (navigator.cookieEnabled)
-        {
-          
-          cook=document.cookie + ";";
-          cStart = cook.indexOf("counts=",0);
-          
-          if (cStart == -1)
-          {
-            document.write("1回目の訪問です！");
-            document.cookie="counts=1;expires=" + date2;  
-          }
-          else
-          {
-            cEnd=cook.indexOf(";",cStart);
-            cnt=cook.substring(cStart+7,cEnd);
-            try
-            {
-              cnt=parseInt(cnt)+1;
-              document.write(cnt+"回目の訪問です！");
-              document.cookie="counts="+cnt+";expires="+ date2;
-            }
-            catch(e)
-            {
-              document.write("訪問回数の取得に失敗しました。");
-            }
-          }
-        }
-        else
-        {
-          document.write("cookieが使用できません。");
-        }
-        
-        </script>
+  </script>
 </head>
 <body>
     
